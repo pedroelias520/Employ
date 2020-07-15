@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "380519226005",
+    "firebase_url": "https://employ-86fcd.firebaseio.com",
+    "project_id": "employ-86fcd",
+    "storage_bucket": "employ-86fcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380519226005:android:86f8261f85b9d023",
+        "android_client_info": {
+          "package_name": "com.elias.employ"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380519226005-vp8svkemhuphrnirei2o6t1e50rief47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCj0MgBxf9U-DodsV6wjp8Un4ty0NciNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380519226005-vp8svkemhuphrnirei2o6t1e50rief47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
