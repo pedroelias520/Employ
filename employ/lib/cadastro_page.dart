@@ -37,33 +37,36 @@ class _CadastroPageState extends State<CadastroPage> {
   FirebaseUser user;
 
   Future getImage(verification) async {
-      try {
-        if (verification) {
-          var img = await ImagePicker.pickImage(source: ImageSource.gallery);
-          await setState(() {
-            _image = img;
-          });
-          return _image;
-        } else {
-          var img = await ImagePicker.pickImage(source: ImageSource.camera);
-          await setState(() {
-            _image = img;
-          });
-          return _image;
-        }
-      } catch (e) {
-        print(e);
+    try {
+      if (verification) {
+        var img = await ImagePicker.pickImage(source: ImageSource.gallery);
+        await setState(() {
+          _image = img;
+        });
+        return _image;
+      } else {
+        var img = await ImagePicker.pickImage(source: ImageSource.camera);
+        await setState(() {
+          _image = img;
+        });
+        return _image;
       }
+    } catch (e) {
+      print(e);
+    }
   }
+
   Future getCurriculo() async {
     try {
-        var curriculo = await FilePicker.getFile();
-        await setState(() {_Curriculo = curriculo;});
-        return _Curriculo;
+      var curriculo = await FilePicker.getFile();
+      await setState(() {
+        _Curriculo = curriculo;
+      });
+      return _Curriculo;
     } catch (e) {
-      print("*"*50);
+      print("*" * 50);
       print(e);
-      print("*"*50);
+      print("*" * 50);
     }
   }
 
@@ -301,21 +304,27 @@ class _CadastroPageState extends State<CadastroPage> {
                           ),
                           RaisedButton(
                             onPressed: () async {
-                              String curriculo = await model.saveCurriculo(_Curriculo);
+                              String curriculo =
+                                  await model.saveCurriculo(_Curriculo);
                               String FileURL = await model.saveImage(_image);
-                              Map<String, dynamic> userData = {
-                                "name": _nameController.text,
-                                "email": _emailController.text,
-                                "area_experiencia": _areaxpController.text,
-                                "tipo": chosseProfission,
-                                "img": FileURL.toString(),
-                                "curriculo": FileURL.toString()
-                              };
-                              model.SignUp(
-                                  userData: userData,
-                                  pass: _passController.text,
-                                  onsucess: _onSucess,
-                                  onFail: _onFail);
+                              print(FileURL);
+                              if (FileURL == null) {
+                                ImageNotFound();
+                              } else {
+                                Map<String, dynamic> userData = {
+                                  "name": _nameController.text,
+                                  "email": _emailController.text,
+                                  "area_experiencia": _areaxpController.text,
+                                  "tipo": chosseProfission,
+                                  "img": FileURL.toString(),
+                                  "curriculo": FileURL.toString()
+                                };
+                                model.SignUp(
+                                    userData: userData,
+                                    pass: _passController.text,
+                                    onsucess: _onSucess,
+                                    onFail: _onFail);                                    
+                              }
                             },
                             color: Colors.deepOrange,
                             shape: RoundedRectangleBorder(
@@ -353,10 +362,11 @@ class _CadastroPageState extends State<CadastroPage> {
       title: Text("Usuário Submetido com sucesso"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
-    print("*"*150);
+    print("*" * 150);
     print("Usuario Cadastrado");
-    print("*"*150);
-    Navigator.push(context,MaterialPageRoute(builder: (context) => LoginPage()));
+    print("*" * 150);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
     /*Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => HomePage()));*/
   }
@@ -366,10 +376,19 @@ class _CadastroPageState extends State<CadastroPage> {
       title: Text("Erro na submissão do Usuário"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
-    print("*-"*150);
+    print("*-" * 150);
     print("Usuario Não cadastrado");
-    print("*-"*150);
+    print("*-" * 150);
     //Navigator.pop(context);
+  }
+
+  void ImageNotFound() {
+    AlertDialog(
+      title: Text("Imagem não encontrada"),
+      content: Text(
+          "É necessário uma foto para sua identificação na plataforma,recomeda-se usar um foto do seu documento de identidade"),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    );
   }
 
   void ServiceType(int e) {

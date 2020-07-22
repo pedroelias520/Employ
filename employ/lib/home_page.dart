@@ -29,9 +29,9 @@ class _HomePageState extends State<HomePage> {
                 heightFactor: 2.0,
                 child: Column(
                   children: <Widget>[
-                    CircularProgressIndicator(),
+                    CircularProgressIndicator(backgroundColor: Colors.white,),
                     Text(
-                      "Carregando...",
+                      "Carregando Interface...",
                       style: TextStyle(fontFamily: 'UbuntuM'),
                     )
                   ],

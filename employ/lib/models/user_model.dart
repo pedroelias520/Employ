@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:employ/SucessScreen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,7 +47,7 @@ class UserModel extends Model {
         .then((user) async {
       await _saveUserData(
           userData, user); //Salva os demais dados do usuário no  banco
-      onsucess();
+      SucessScreen();
       isLodding = false;
       notifyListeners();
     }).catchError((e) {
@@ -100,9 +101,7 @@ class UserModel extends Model {
       isLodding = false;
       notifyListeners(); //atualiza a pagina
     }); */
-  }
-
-  void recoverPass() {}
+  }  
 
   List<UserModel> getUserList() {
     List items;

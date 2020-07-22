@@ -1,3 +1,4 @@
+import 'package:employ/SucessScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color.fromARGB(255, 4, 125, 141)
         ),
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        home: SucessScreen(),
       ),
     );
   }

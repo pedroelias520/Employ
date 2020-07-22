@@ -133,11 +133,10 @@ class _LoginPageState extends State<LoginPage> {
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(80.0)),
-                                          icon: Icon(
-                                            Icons.lock_outline,
-                                          ),
+                                          icon: Icon(Icons.lock_outline),
                                           labelText: "Senha"),
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.text,    
+                                      textAlign: TextAlign.center,                                  
                                     ),
                                   ),
                                 ),                                
@@ -154,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                                             _emailController.text,
                                             _passController.text,
                                             onSucess,
-                                            loginFailed);
+                                            onFail);
                                       },
                                       shape: new RoundedRectangleBorder(
                                           borderRadius:
@@ -227,6 +226,7 @@ class _LoginPageState extends State<LoginPage> {
   void onSucess() {
     AlertDialog(
       title: Text("Usuário Submetido com sucesso"),
+      content: Text("Verifique sua senha e login e tente novamente"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
     Navigator.push(
@@ -236,8 +236,11 @@ class _LoginPageState extends State<LoginPage> {
   void onFail() {
     AlertDialog(
       title: Text("Erro na submissão do Usuário"),
+      content: Text("Verifique sua senha e login e tente novamente"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   void signOutGoogle() async {
