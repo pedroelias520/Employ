@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(20)),
                           child: Container(
-                              padding: EdgeInsets.all(15),
+                              padding: EdgeInsets.all(10),
                               height: 220,
                               decoration: BoxDecoration(
                                   color: Colors.blue,
