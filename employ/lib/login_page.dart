@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 15,
-                          color: Colors.black38),
+                          color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
                     FlatButton(
