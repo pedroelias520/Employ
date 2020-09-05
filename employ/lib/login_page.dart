@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "EMPLOY",
+                            "Employ",
                             style: TextStyle(
                                 fontFamily: 'UbuntuM',
                                 fontSize: 40,
@@ -190,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: <Widget>[
                           Icon(
                             Icons.file_download,
-                            color: Colors.black38,
+                            color: Colors.white,
                           ),
                           Text(
                             "Baixar Modelo de Curriculo",
