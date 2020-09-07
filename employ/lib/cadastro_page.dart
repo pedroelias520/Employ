@@ -26,6 +26,7 @@ class _CadastroPageState extends State<CadastroPage> {
   final _metasController = TextEditingController();
   final _areaxpController = TextEditingController();
   final _passController = TextEditingController();
+  final _passController_Confirm = TextEditingController();
   String chosseProfission;
   String escolaridade;
   double size = 56;
@@ -183,7 +184,11 @@ class _CadastroPageState extends State<CadastroPage> {
                               keyboardType: TextInputType.text,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide:
+                                          new BorderSide(color: Colors.white)),
                                   labelText: "Nome Completo"),
                               enabled: true,
                             ),
@@ -196,9 +201,11 @@ class _CadastroPageState extends State<CadastroPage> {
                               style: TextStyle(color: Colors.white),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
+                              obscureText: true,
+                              validator: (val) => val.length < 6 ? "Sua senha é muito curta" : null,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                   labelText: "Senha"),
                               enabled: true,
                             ),
@@ -207,13 +214,14 @@ class _CadastroPageState extends State<CadastroPage> {
                             padding: EdgeInsets.all(pad),
                             height: size,
                             child: TextFormField(
-                              controller: _passController,
+                              controller: _passController_Confirm,
                               style: TextStyle(color: Colors.white),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
                               textAlign: TextAlign.center,
+                              obscureText: true,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                   labelText: "Confirma Senha"),
                               enabled: true,
                             ),
@@ -229,7 +237,7 @@ class _CadastroPageState extends State<CadastroPage> {
                               keyboardType: TextInputType.emailAddress,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                   labelText: "Email"),
                               enabled: true,
                             ),
@@ -244,7 +252,7 @@ class _CadastroPageState extends State<CadastroPage> {
                               keyboardType: TextInputType.text,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                   labelText: "Profissão"),
                               enabled: true,
                             ),
@@ -310,7 +318,9 @@ class _CadastroPageState extends State<CadastroPage> {
                               print(FileURL);
                               if (FileURL == null) {
                                 ImageNotFound();
-                              } else {
+                              }
+                              if (validate())
+                              {
                                 Map<String, dynamic> userData = {
                                   "name": _nameController.text,
                                   "email": _emailController.text,
@@ -323,7 +333,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                     userData: userData,
                                     pass: _passController.text,
                                     onsucess: _onSucess,
-                                    onFail: _onFail);                                    
+                                    onFail: _onFail);
                               }
                             },
                             color: Colors.deepOrange,
@@ -423,6 +433,13 @@ class _CadastroPageState extends State<CadastroPage> {
       AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         title: Text("É extremamente proibido o uso de palavras obscenas!"),
+      );
+      return false;
+    }
+    if(_passController.text == _passController_Confirm.text){
+      AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        title: Text("Os campos de senha estão errados!"),
       );
       return false;
     }
