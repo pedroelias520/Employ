@@ -74,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.only(bottom: 20, left: 0, top: 30),
                       child: Column(
                         children: <Widget>[
+                          Icon(Icons.equalizer,size: 120,color: Colors.white,),
                           Text(
                             "Employ",
                             style: TextStyle(
@@ -92,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Center(
-                      heightFactor: 1.3,
+                      heightFactor: 1.0,
                       child: Form(
                         child: Card(
                           margin: EdgeInsets.all(50),
@@ -100,10 +101,10 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: new BorderRadius.circular(20)),
                           child: Container(
                               padding: EdgeInsets.all(10),
-                              height: 220,
+                              height: 320,
                               decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: new BorderRadius.circular(10.0),
+                                  color: Colors.white,
+                                  borderRadius: new BorderRadius.circular(20.0),
                                   boxShadow: [
                                     new BoxShadow(
                                         color: Colors.black38, blurRadius: 10.0)
@@ -114,11 +115,14 @@ class _LoginPageState extends State<LoginPage> {
                                     padding: const EdgeInsets.all(5.0),
                                     child: TextFormField(
                                       controller: _emailController,
-                                      decoration: InputDecoration(                                      
-                                        fillColor: Colors.white,                                        
-                                        border: OutlineInputBorder(borderRadius: new BorderRadius.circular(80.0)),
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(
+                                                    20.0)),
                                         icon: Icon(Icons.person),
-                                        labelText: "Login",                                        
+                                        labelText: "Login",
                                       ),
                                       keyboardType: TextInputType.emailAddress,
                                       textAlign: TextAlign.center,
@@ -132,14 +136,17 @@ class _LoginPageState extends State<LoginPage> {
                                       controller: _passController,
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
-                                          border: OutlineInputBorder(borderRadius: new BorderRadius.circular(80.0)),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      20.0)),
                                           icon: Icon(Icons.lock_outline),
                                           labelText: "Senha"),
-                                      keyboardType: TextInputType.text,    
-                                      textAlign: TextAlign.center,                                  
+                                      keyboardType: TextInputType.text,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                ),                                
+                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -168,6 +175,13 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ],
+                                ),
+                                Expanded(
+                                    child: FlatButton(
+                                      padding: EdgeInsets.all(5.0),
+                                      onPressed: () {},
+                                      child: Text("Esqueceu sua senha?",style: TextStyle(fontFamily: "UbuntuM")),
+                                    )
                                 ),
                               ])),
                         ),
@@ -220,9 +234,11 @@ class _LoginPageState extends State<LoginPage> {
       showNotification: true,
     );
   }
+
   void loginFailed() {
     print("Erro de login");
   }
+
   void onSucess() {
     AlertDialog(
       title: Text("Usuário Submetido com sucesso"),
