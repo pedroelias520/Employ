@@ -40,14 +40,14 @@ class _SucessScreenState extends State<SucessScreen> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(
-                  "Seu cadastro foi realizado com sucesso na plataforma!",
+                  "Obrigado por baixar o nosso app!",
                   style: TextStyle(color: Colors.white, fontFamily: "UbuntuM"),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: AutoSizeText(
-                  "Após a aceitamento do seu cadastro você já pode mandar solicitações para outras pessoas e até conseguir o seu emprego",
+                  "Após a aceitamento do seu cadastro você já pode mandar solicitações para outras pessoas e até conseguir o seu primeiro emprego",
                   style: TextStyle(color: Color.fromRGBO(110,103,176, 1),fontSize: 15,fontFamily: "UbuntuM"),
                   textAlign: TextAlign.center,
                 ),
