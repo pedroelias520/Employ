@@ -36,6 +36,8 @@ class _CadastroPageState extends State<CadastroPage> {
   File _image;
   File _Curriculo;
   FirebaseUser user;
+  String alert = "Confirmation";
+  bool obscureText = true;
 
   Future getImage(verification) async {
     try {
@@ -73,7 +75,7 @@ class _CadastroPageState extends State<CadastroPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(40, 37, 65, 1),
+        backgroundColor: Color.fromRGBO(39, 71, 103, 1),
         body: ScopedModelDescendant<UserModel>(
             builder: (context, builder, model) {
           if (model.isLodding)
@@ -93,7 +95,7 @@ class _CadastroPageState extends State<CadastroPage> {
                       padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Color.fromRGBO(62, 57, 98, 1),
+                          color: Color.fromRGBO(6, 129, 251, 1),
                           boxShadow: [
                             new BoxShadow(
                                 color: Colors.black, blurRadius: 10.0),
@@ -113,8 +115,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                         child: Text(
                                           "Selecionar Foto",
                                           style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  124, 124, 188, 1),
+                                              color: Colors.white,
                                               fontFamily: 'UbuntuM',
                                               fontSize: 20),
                                         ),
@@ -130,8 +131,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                               height: 120,
                                               decoration: BoxDecoration(
                                                   border: Border.all(
-                                                      color: Color.fromRGBO(
-                                                          124, 124, 188, 1),
+                                                      color: Colors.white,
                                                       width: 5.0),
                                                   shape: BoxShape.circle,
                                                   image: DecorationImage(
@@ -158,12 +158,11 @@ class _CadastroPageState extends State<CadastroPage> {
                                       height: 50,
                                       width: 50,
                                       decoration: BoxDecoration(
-                                          color:
-                                              Color.fromRGBO(124, 124, 188, 1),
+                                          color: Colors.white,
                                           shape: BoxShape.circle),
                                       child: Icon(
                                         Icons.camera_alt,
-                                        color: Colors.white,
+                                        color: Colors.blue,
                                       ),
                                     ),
                                     onTap: () {
@@ -179,16 +178,18 @@ class _CadastroPageState extends State<CadastroPage> {
                             height: size,
                             child: TextFormField(
                               controller: _nameController,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'UbuntuM'),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0)),
-                                      borderSide:
-                                          new BorderSide(color: Colors.white)),
+                                          Radius.circular(10.0)),
+                                      borderSide: new BorderSide(
+                                          color:
+                                              Color.fromRGBO(143, 199, 255, 1),
+                                          width: 2.0)),
                                   labelText: "Nome Completo"),
                               enabled: true,
                             ),
@@ -198,14 +199,22 @@ class _CadastroPageState extends State<CadastroPage> {
                             height: size,
                             child: TextFormField(
                               controller: _passController,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'UbuntuM'),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              obscureText: true,
-                              validator: (val) => val.length < 6 ? "Sua senha é muito curta" : null,
-                              textAlign: TextAlign.center,
+                              obscureText: !obscureText,
+                              validator: (val) => val.length < 6
+                                  ? "Sua senha é muito curta"
+                                  : null,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: new BorderSide(
+                                          color:
+                                              Color.fromRGBO(143, 199, 255, 1),
+                                          width: 2.0)),
                                   labelText: "Senha"),
                               enabled: true,
                             ),
@@ -215,16 +224,53 @@ class _CadastroPageState extends State<CadastroPage> {
                             height: size,
                             child: TextFormField(
                               controller: _passController_Confirm,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'UbuntuM'),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              textAlign: TextAlign.center,
-                              obscureText: true,
+                              validator: (val) => _passController.text == val
+                                  ? alert = "Senhas iguais"
+                                  : alert = "Senhas não coincidem",
+                              obscureText: !obscureText,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromRGBO(143, 199, 255, 1),
+                                          width: 2.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
                                   labelText: "Confirma Senha"),
-                              enabled: true,
+                              enabled:
+                                  _passController.text == null ? false : true,
                             ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Checkbox(
+                                value: obscureText,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    obscureText = value;
+                                  });
+                                },
+                              ),
+                              Text(
+                                "Mostrar senha",
+                                style: TextStyle(
+                                    fontFamily: 'UbuntuM',
+                                    color: Color.fromRGBO(143, 199, 255, 1)),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 80.0),
+                                child: Text(
+                                  _passController.text == _passController_Confirm.text ? " " : "Senhas diferentes",
+                                  style: TextStyle(
+                                      fontFamily: 'UbuntuM',
+                                      color: Colors.red),
+                                ),
+                              )
+                            ],
                           ),
                           Container(
                             padding: EdgeInsets.all(pad),
@@ -232,12 +278,19 @@ class _CadastroPageState extends State<CadastroPage> {
                             child: TextFormField(
                               controller: _emailController,
                               keyboardAppearance: Brightness.light,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'UbuntuM'),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.emailAddress,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: new BorderSide(
+                                          color:
+                                              Color.fromRGBO(143, 199, 255, 1),
+                                          width: 2.0)),
                                   labelText: "Email"),
                               enabled: true,
                             ),
@@ -247,12 +300,19 @@ class _CadastroPageState extends State<CadastroPage> {
                             height: size,
                             child: TextFormField(
                               controller: _areaxpController,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'UbuntuM'),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color:
+                                              Color.fromRGBO(143, 199, 255, 1),
+                                          width: 2.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
                                   labelText: "Profissão"),
                               enabled: true,
                             ),
@@ -267,12 +327,12 @@ class _CadastroPageState extends State<CadastroPage> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.file_download,
-                                    color: Color.fromRGBO(124, 124, 188, 1),
+                                    color: Color.fromRGBO(143, 199, 255, 1),
                                   ),
                                   Text("Carregar Currículo",
                                       style: TextStyle(
                                           color:
-                                              Color.fromRGBO(124, 124, 188, 1),
+                                              Color.fromRGBO(143, 199, 255, 1),
                                           fontFamily: 'UbuntuM'))
                                 ],
                               )),
@@ -285,10 +345,11 @@ class _CadastroPageState extends State<CadastroPage> {
                                         style: TextStyle(
                                             fontSize: 13.0,
                                             color: Color.fromRGBO(
-                                                124, 124, 188, 1),
+                                                143, 199, 255, 1),
                                             fontFamily: 'UbuntuM'),
                                       ),
                                       leading: Radio(
+                                          activeColor: Colors.deepOrange,
                                           value: 1,
                                           groupValue: type_value,
                                           onChanged: (int e) =>
@@ -300,10 +361,11 @@ class _CadastroPageState extends State<CadastroPage> {
                                         style: TextStyle(
                                             fontSize: 14,
                                             color: Color.fromRGBO(
-                                                124, 124, 188, 1),
+                                                143, 199, 255, 1),
                                             fontFamily: 'UbuntuM'),
                                       ),
                                       leading: Radio(
+                                          activeColor: Colors.deepOrange,
                                           value: 2,
                                           groupValue: type_value,
                                           onChanged: (int e) =>
@@ -319,8 +381,7 @@ class _CadastroPageState extends State<CadastroPage> {
                               if (FileURL == null) {
                                 ImageNotFound();
                               }
-                              if (validate())
-                              {
+                              if (validate()) {
                                 Map<String, dynamic> userData = {
                                   "name": _nameController.text,
                                   "email": _emailController.text,
@@ -340,7 +401,7 @@ class _CadastroPageState extends State<CadastroPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(20.0)),
                             child: Text(
-                              "Submeter",
+                              "Cadastrar",
                               style: TextStyle(
                                   color: Colors.white, fontFamily: 'UbuntuM'),
                             ),
@@ -351,7 +412,7 @@ class _CadastroPageState extends State<CadastroPage> {
                               "Ao submeter ,seu perfil será submetido para análise e depois será adcionado ao banco de dados da plataforma",
                               style: TextStyle(
                                   fontStyle: FontStyle.italic,
-                                  color: Color.fromRGBO(124, 124, 188, 1),
+                                  color: Color.fromRGBO(143, 199, 255, 1),
                                   fontFamily: 'UbuntuM'),
                               textAlign: TextAlign.center,
                             ),
@@ -436,7 +497,7 @@ class _CadastroPageState extends State<CadastroPage> {
       );
       return false;
     }
-    if(_passController.text == _passController_Confirm.text){
+    if (_passController.text == _passController_Confirm.text) {
       AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         title: Text("Os campos de senha estão errados!"),
