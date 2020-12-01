@@ -5,8 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SelectPage extends StatefulWidget {
-  String name, img, email, tipo, area_experiencia, curriculo;
-  SelectPage(name, img, email, tipo, area_experiencia, curriculo) {
+  String id, name, img, email, tipo, area_experiencia, curriculo;
+  SelectPage(id, name, img, email, tipo, area_experiencia, curriculo) {
+    this.id = id;
     this.name = name;
     this.img = img;
     this.email = email;
@@ -17,12 +18,13 @@ class SelectPage extends StatefulWidget {
 
   @override
   _SelectPageState createState() =>
-      _SelectPageState(name, img, email, tipo, area_experiencia, curriculo);
+      _SelectPageState(id, name, img, email, tipo, area_experiencia, curriculo);
 }
 
 class _SelectPageState extends State<SelectPage> {
-  String name, img, email, tipo, area_experiencia, curriculo;
-  _SelectPageState(name, img, email, tipo, area_experiencia, curriculo) {
+  String id, name, img, email, tipo, area_experiencia, curriculo;
+  _SelectPageState(id, name, img, email, tipo, area_experiencia, curriculo) {
+    this.id = id;
     this.name = name;
     this.img = img;
     this.email = email;
@@ -121,16 +123,23 @@ class _SelectPageState extends State<SelectPage> {
                                   ),
                                 ),
                                 Text(
-                                  email,
+                                  id,
                                   style: TextStyle(
                                       fontSize: 15,
+                                      color: Colors.deepOrange,
+                                      fontFamily: 'UbuntuM'),
+                                ),
+                                Text(
+                                  email,
+                                  style: TextStyle(
+                                      fontSize: 20,
                                       color: Color.fromRGBO(148, 147, 205, 1),
                                       fontFamily: 'UbuntuM'),
                                 ),
                                 Text(
                                   tipo,
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 20,
                                       color: Color.fromRGBO(148, 147, 205, 1),
                                       fontFamily: 'UbuntuM'),
                                 ),
@@ -166,9 +175,7 @@ class _SelectPageState extends State<SelectPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: RaisedButton(
-                            onPressed: () {
-                              if (tipo == 'Empregador') Text('');
-                            },
+                            onPressed: () {},
                             color: Colors.deepOrange,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),

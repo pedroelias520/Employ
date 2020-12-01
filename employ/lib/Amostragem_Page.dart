@@ -72,14 +72,7 @@ class _AmostragemPageState extends State<AmostragemPage> {
           ],
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: [
-                  Color.fromRGBO(0, 193, 250, 10),
-                  Color.fromRGBO(0, 117, 151, 10)
-                ],
-              ),
+              color: Colors.deepOrange
             ),
           ),
         ),
@@ -255,6 +248,7 @@ class _AmostragemPageState extends State<AmostragemPage> {
                       print("Você Clicou lá : ${document['name']}");
                       print("="*150);
                       Navigator.push(context,MaterialPageRoute(builder: (context) => SelectPage(
+                          document['id'],
                           document['name'],
                           document['img'],
                           document['email'],

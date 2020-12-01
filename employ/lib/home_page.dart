@@ -126,6 +126,7 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(
                             "${!model.isLoggedIn() ? "" : model.userData["name"]}",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'UbuntuM',
@@ -163,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                                       backgroundColor: Colors.lightBlueAccent,
                                       radius: 10,
                                       child: Text(
-                                        '1',
+                                        model.userData["notifications"].toString(),
                                         style: TextStyle(
                                             fontSize: 14,
                                             color: Colors.white,

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:employ/SucessScreen.dart';
@@ -47,7 +48,8 @@ class UserModel extends Model {
         .then((user) async {
       await _saveUserData(
           userData, user); //Salva os demais dados do usuário no  banco
-      SucessScreen();
+      print("Usuário cadastrado");
+      onsucess();
       isLodding = false;
       notifyListeners();
     }).catchError((e) {
@@ -116,6 +118,27 @@ class UserModel extends Model {
 
   bool isLoggedIn() {
     return firebaseUser != null;
+  }
+
+  Future<String> GenerateId() async {
+    String id_number = "";
+    var gerador = Random();
+    for(int x=0;x<4;x++){
+      for (int i=0;i<4;i++){
+        var number = gerador.nextInt(9);
+        id_number = id_number.toString() + number.toString();
+      }
+      if(x<3){
+        id_number = id_number + " ";
+      }
+    }
+    List List_of_ids = (await Firestore.instance.collection("Users").where("id", arrayContains: id_number).getDocuments()).documents;
+    if(List_of_ids.isEmpty){
+      return id_number;
+    }
+    else{
+      GenerateId();
+    }
   }
 
   Future<String> signInWithGoogle() async {
@@ -223,7 +246,7 @@ class UserModel extends Model {
       return await taskSnapshot.ref.getDownloadURL();
     } catch (e) {
       print("-" * 150);
-      print("Erro na mandagem de imagem : " + e.toString());
+      print("Erro na mandagem de curriculo : " + e.toString());
       print("-" * 150);
     }
   }

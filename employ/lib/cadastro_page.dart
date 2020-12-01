@@ -374,27 +374,30 @@ class _CadastroPageState extends State<CadastroPage> {
                           ),
                           RaisedButton(
                             onPressed: () async {
-                              String curriculo =
-                                  await model.saveCurriculo(_Curriculo);
+                              String curriculo = await model.saveCurriculo(_Curriculo);
                               String FileURL = await model.saveImage(_image);
-                              print(FileURL);
+                              String id_number = await model.GenerateId();
                               if (FileURL == null) {
                                 ImageNotFound();
                               }
-                              if (validate()) {
+                              if (validate() == true) {
                                 Map<String, dynamic> userData = {
+                                  "id": id_number.toString(),
                                   "name": _nameController.text,
                                   "email": _emailController.text,
                                   "area_experiencia": _areaxpController.text,
                                   "tipo": chosseProfission,
                                   "img": FileURL.toString(),
-                                  "curriculo": FileURL.toString()
+                                  "curriculo": curriculo.toString(),
+                                  "notifications": 0,
                                 };
                                 model.SignUp(
                                     userData: userData,
                                     pass: _passController.text,
                                     onsucess: _onSucess,
                                     onFail: _onFail);
+                              }else {
+                                print("Erro na validação dos campos");
                               }
                             },
                             color: Colors.deepOrange,
@@ -478,31 +481,26 @@ class _CadastroPageState extends State<CadastroPage> {
   }
 
   bool validate() {
-    if (_emailController.text.isEmpty) {
-      AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        title: Text("Insira um email válido!"),
-      );
+    if(_passController.text.length < 6 && _passController_Confirm.text.length < 6) {
+        print("Senha muita curta");
+    }
+    else if (_emailController.text.isEmpty) {
+      print("Email está vazio");
       return false;
     }
-
-    if (_nameController.text.contains("pica") ||
+    else if (_nameController.text.contains("pica") ||
         _nameController.text.contains("porra") ||
         _nameController.text.contains("caralho") ||
         _nameController.text.contains("piroca") ||
         _nameController.text.contains("fdp")) {
-      AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        title: Text("É extremamente proibido o uso de palavras obscenas!"),
-      );
+      print("Nomes obsenos no nome");
       return false;
     }
-    if (_passController.text == _passController_Confirm.text) {
-      AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        title: Text("Os campos de senha estão errados!"),
-      );
+    else if (_passController.text != _passController_Confirm.text) {
+      print("Senhas não estão iguais");
       return false;
+    } else {
+      return true;
     }
   }
 }

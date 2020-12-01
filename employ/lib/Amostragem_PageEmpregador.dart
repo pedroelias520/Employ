@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'home_page.dart';
 import 'login_page.dart';
 import 'models/select_page.dart';
 import 'models/user_model.dart';
@@ -22,39 +23,8 @@ class _AmostragemPageEmpregadorState extends State<AmostragemPageEmpregador> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(40, 37, 65, 1),
-        appBar: AppBar(
-          leading: FlatButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                  )
-                ],
-              )),
-          title: Text(
-            "EMPLOY",
-            style: TextStyle(fontFamily: "UbuntuM"),
-          ),
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: [
-                  Color.fromRGBO(0, 193, 250, 10),
-                  Color.fromRGBO(0, 117, 151, 10)
-                ],
-              ),
-            ),
-          ),
-        ),
+      appBar: AppBar(backgroundColor: Colors.transparent,title: Text("Employ",style: TextStyle(color: Colors.white,fontFamily: 'UbuntuM'),),centerTitle: true,),
+        backgroundColor: Colors.transparent,
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
               canvasColor: Color.fromRGBO(62, 57, 98, 1),
@@ -133,7 +103,10 @@ class _AmostragemPageEmpregadorState extends State<AmostragemPageEmpregador> {
   Widget _CardUsers(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         //Firestore.instance.collection("Users").where("tipo",isEqualTo: 'Paciente').snapshots()
-        stream: Firestore.instance.collection('Users').where("tipo", isEqualTo: 'Empregador').snapshots(),
+        stream: Firestore.instance
+            .collection('Users')
+            .where("tipo", isEqualTo: 'Empregador')
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           double lenght =
               snapshot.data.documents.length.truncateToDouble() * 200;
@@ -230,6 +203,7 @@ class _AmostragemPageEmpregadorState extends State<AmostragemPageEmpregador> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => SelectPage(
+                                  document['id'],
                                   document['name'],
                                   document['img'],
                                   document['email'],

@@ -133,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: TextFormField(
+                                      obscureText: true,
                                       controller: _passController,
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
