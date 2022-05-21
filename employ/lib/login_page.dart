@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     return PageView(
       children: <Widget>[
         Scaffold(
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomInset: false,
             bottomNavigationBar: FlatButton(
                 color: Color.fromRGBO(255, 255, 255, 220),
                 onPressed: () {

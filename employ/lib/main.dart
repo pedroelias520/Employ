@@ -19,8 +19,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<UserModel>(//Cria classe dependente do model especificado
-      model: UserModel(),//Tudo que ocorre no model inlui nas demais telas
+    return ScopedModel<UserModel>(
+      model: UserModel(),
       child: MaterialApp(
         title: "Flutter App is coming",
         theme: ThemeData(
